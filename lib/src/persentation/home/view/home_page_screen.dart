@@ -1,4 +1,5 @@
 import 'package:cinema/src/base/network/apiendpoint.dart';
+import 'package:cinema/src/base/network/dio_client.dart';
 import 'package:cinema/src/data/datasources/remote/home_remote_data_source.dart';
 import 'package:cinema/src/data/repositories/home_remote_repository_impl.dart';
 import 'package:cinema/src/domain/use_cases/get_movies_recent_use_case.dart';
@@ -24,7 +25,7 @@ class HomePageScreen extends StatefulWidget {
 class _HomePageScreenState extends State<HomePageScreen> {
   final HomeRemoteRepositoryImpl _homeRemoteRepository =
       HomeRemoteRepositoryImpl(
-          HomeRemoteDataSource(Dio(), baseUrl: ApiEndPoints.baseUrl));
+          HomeRemoteDataSource(DioClient.provideDioClient(), baseUrl: ApiEndPoints.baseUrl));
   PageController? pageController;
   double viewportFraction = 0.8;
   double? pageOffset = 0;

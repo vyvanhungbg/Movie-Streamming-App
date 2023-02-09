@@ -1,4 +1,5 @@
 import 'package:cinema/src/base/network/apiendpoint.dart';
+import 'package:cinema/src/base/network/dio_client.dart';
 import 'package:cinema/src/data/datasources/remote/detail_movie_remote_data_source.dart';
 import 'package:cinema/src/data/repositories/detail_movie_repository.dart';
 import 'package:cinema/src/data/repositories/detail_movie_repository_impl.dart';
@@ -21,22 +22,21 @@ class MovieDetailScreen extends StatefulWidget {
 class _MovieDetailScreenState extends State<MovieDetailScreen> {
   final DetailMovieRepository _movieDetailRepository =
       DetailMovieRepositoryImpl(
-          DetailMovieRemoteDataSource(Dio(), baseUrl: ApiEndPoints.baseUrl));
+          DetailMovieRemoteDataSource(DioClient.provideDioClient(), baseUrl: ApiEndPoints.baseUrl));
 
   @override
   Widget build(BuildContext context) {
     final modalRoute = ModalRoute.of(context)!.settings.arguments as Map;
     final id = modalRoute["id"] as String;
     final paramaters = {'id': id};
-    print(paramaters);
-    print(widget.paramaters);
+
     return BlocProvider(
       create: (context) =>
           DetailMovieBloc(GetDetailMovieUseCase(_movieDetailRepository))
             ..add(DetailStarted())
             ..add(GetMovieDetail(paramaters)),
       child:  const Scaffold(
-        body: SafeArea(child: BuildMovieDetail())
+        body: SingleChildScrollView(child: SafeArea(child: BuildMovieDetail()))
       ),
     );
   }

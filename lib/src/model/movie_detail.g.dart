@@ -22,7 +22,10 @@ MovieDetail _$MovieDetailFromJson(Map<String, dynamic> json) => MovieDetail()
   ..production = json['production'] as String?
   ..country = json['country'] as String?
   ..duration = json['duration'] as String?
-  ..rating = (json['rating'] as num?)?.toDouble();
+  ..rating = (json['rating'] as num?)?.toDouble()
+  ..episodes = (json['episodes'] as List<dynamic>?)
+      ?.map((e) => EpisodeEntity.fromJson(e as Map<String, dynamic>))
+      .toList();
 
 Map<String, dynamic> _$MovieDetailToJson(MovieDetail instance) =>
     <String, dynamic>{
@@ -41,4 +44,5 @@ Map<String, dynamic> _$MovieDetailToJson(MovieDetail instance) =>
       'country': instance.country,
       'duration': instance.duration,
       'rating': instance.rating,
+      'episodes': instance.episodes,
     };
