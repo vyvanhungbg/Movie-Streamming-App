@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:cinema/src/model/episode_entity.dart';
+import 'package:cinema/src/model/recommendation_movie_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'movie_detail.g.dart';
@@ -38,7 +39,8 @@ class MovieDetail {
   @JsonKey(name: "rating")
   double? rating;
 
-  //late List<MovieDetailRecommendations> recommendations;
+  @JsonKey(name: "recommendations")
+  List<RecommendationMovieEntity>? recommendations;
   @JsonKey(name: "episodes")
   List<EpisodeEntity>? episodes;
 

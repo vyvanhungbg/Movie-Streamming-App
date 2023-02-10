@@ -39,6 +39,7 @@ app.*.symbols
 
 .network/apiendpoint.dart
 lib/src/base/network/apiendpoint.dart
+*.g.dart
 
 # Obfuscation related
 app.*.map.json

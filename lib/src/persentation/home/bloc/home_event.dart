@@ -12,3 +12,8 @@ class HomeStarted extends HomeEvent {}
 class HomeGetMoviesTrending extends HomeEvent{}
 
 class HomeGetMoviesRecent extends HomeEvent{}
+
+class HomeSearchMovies extends HomeEvent{
+  final String search;
+  HomeSearchMovies(this.search);
+}

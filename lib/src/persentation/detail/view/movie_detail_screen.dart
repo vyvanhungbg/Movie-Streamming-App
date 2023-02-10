@@ -36,7 +36,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
             ..add(DetailStarted())
             ..add(GetMovieDetail(paramaters)),
       child:  const Scaffold(
-        body: SingleChildScrollView(child: SafeArea(child: BuildMovieDetail()))
+        body: Center(child: SingleChildScrollView(child: SafeArea(child: BuildMovieDetail())))
       ),
     );
   }

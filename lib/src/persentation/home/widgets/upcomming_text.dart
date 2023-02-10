@@ -22,7 +22,7 @@ class UpcomingText extends StatelessWidget {
         final index = (pageOffset ?? 0).round();
         if (list.length > index) {
           return Container(
-            margin: const EdgeInsets.only(left: 12),
+            margin: const EdgeInsets.only(left: 12, top: 12),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -30,15 +30,15 @@ class UpcomingText extends StatelessWidget {
                   '${list[index].title}',
                   style: const TextStyle(
                     color: Colors.black,
-                    fontSize: 20,
+                    fontSize: 28,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 Text(
-                  "Thời lượng: ${list[index].duration ?? '__'}",
+                  "Thời lượng: ${list[index].duration ?? 'chưa có thông tin'}",
                   style: const TextStyle(
                     color: Colors.black,
-                    fontSize: 16,
+                    fontSize: 18,
                   ),
                 ),
               ],

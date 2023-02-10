@@ -43,6 +43,9 @@ dependencies:
   video_player: ^2.5.1
   subtitle_wrapper_package: ^2.1.0
   dio_logging_interceptor: ^1.0.1
+  firebase_core: ^2.5.0
+  firebase_crashlytics: ^3.0.12
+
 
 dev_dependencies:
   flutter_test:

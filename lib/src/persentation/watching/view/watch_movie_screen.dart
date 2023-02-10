@@ -35,7 +35,6 @@ class _WatchMovieScreenState extends State<WatchMovieScreen> {
 
     final watchParameter = WatchParameter(
         episodeId: episodeId, mediaId: mediaId, server: serverName);
-    print("____________nhan pram");
     return Scaffold(
       body: BlocProvider(
         create: (context) =>

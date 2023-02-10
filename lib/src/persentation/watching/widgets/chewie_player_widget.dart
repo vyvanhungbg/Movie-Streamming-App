@@ -28,6 +28,11 @@ class ChewiePlayerWidget extends StatefulWidget {
 class _ChewiePlayerWidgetState extends State<ChewiePlayerWidget> {
   late VideoPlayerController _videoPlayerController;
   ChewieController? _chewieController;
+  var _subtitleController = SubtitleController(
+      subtitleDecoder: SubtitleDecoder.utf8,
+      subtitleUrl:
+          "https://cc.2cdns.com/76/94/76943aa3f5dab048d9043cb9317f4225/eng-2.vtt",
+      subtitleType: SubtitleType.webvtt);
   int? bufferDelay;
 
   @override
@@ -59,6 +64,11 @@ class _ChewiePlayerWidgetState extends State<ChewiePlayerWidget> {
       videoPlayerController: _videoPlayerController,
       autoPlay: true,
       looping: false,
+      fullScreenByDefault: true,
+
+      allowFullScreen: true,
+      errorBuilder: (_,__) => Text("Đã xảy ra lỗi"),
+      showOptions: true,
       progressIndicatorDelay:
           bufferDelay != null ? Duration(milliseconds: bufferDelay!) : null,
       additionalOptions: (context) {
@@ -68,6 +78,12 @@ class _ChewiePlayerWidgetState extends State<ChewiePlayerWidget> {
             iconData: Icons.live_tv_sharp,
             title: 'Toggle Video Src',
           ),
+          OptionItem(
+            onTap: () => _subtitleController.subtitleUrl =
+                "https://cc.2cdns.com/76/94/76943aa3f5dab048d9043cb9317f4225/eng-2.vtt",
+            iconData: Icons.subtitles,
+            title: 'Toggle Subtitle',
+          )
         ];
       },
       hideControlsTimer: const Duration(seconds: 3),
@@ -75,7 +91,7 @@ class _ChewiePlayerWidgetState extends State<ChewiePlayerWidget> {
       showControls: true,
       materialProgressColors: ChewieProgressColors(
         playedColor: Colors.red,
-        handleColor: Colors.blue,
+        handleColor: Colors.white54,
         backgroundColor: Colors.grey,
         bufferedColor: Colors.lightGreen,
       ),
@@ -123,8 +139,8 @@ class _ChewiePlayerWidgetState extends State<ChewiePlayerWidget> {
               final watchMovie = state.watchMovieData;
               initializePlayer(watchMovie!.sources!.first.url).whenComplete(() {
                 bloc.add(WatchMovieBegin());
-                ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text("Tìm thấy film chuẩn bị chiếu !")));
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    content: Text("Tìm thấy film chuẩn bị chiếu !")));
               });
             }
             if (state.watchMovieStatus == DataStatus.failure) {
@@ -150,19 +166,13 @@ class _ChewiePlayerWidgetState extends State<ChewiePlayerWidget> {
                           ? SubtitleWrapper(
                               videoPlayerController:
                                   _chewieController!.videoPlayerController,
-                              subtitleController: SubtitleController(subtitleDecoder: SubtitleDecoder.utf8,
-                                subtitleUrl:
-                                    "https://cc.2cdns.com/76/94/76943aa3f5dab048d9043cb9317f4225/eng-2.vtt",
-
-                                subtitleType: SubtitleType.webvtt
-                              ),
+                              subtitleController: _subtitleController,
                               subtitleStyle: const SubtitleStyle(
                                   textColor: Colors.redAccent, hasBorder: true),
                               videoChild: Chewie(
                                 controller: _chewieController!,
                               ))
-                          : const Center(
-                              child: CircularProgressIndicator())),
+                          : const Center(child: CircularProgressIndicator())),
                 ),
               ],
             );
