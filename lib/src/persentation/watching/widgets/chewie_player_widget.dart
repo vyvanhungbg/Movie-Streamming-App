@@ -28,11 +28,7 @@ class ChewiePlayerWidget extends StatefulWidget {
 class _ChewiePlayerWidgetState extends State<ChewiePlayerWidget> {
   late VideoPlayerController _videoPlayerController;
   ChewieController? _chewieController;
-  var _subtitleController = SubtitleController(
-      subtitleDecoder: SubtitleDecoder.utf8,
-      subtitleUrl:
-          "https://cc.2cdns.com/76/94/76943aa3f5dab048d9043cb9317f4225/eng-2.vtt",
-      subtitleType: SubtitleType.webvtt);
+
   int? bufferDelay;
 
   @override
@@ -65,9 +61,8 @@ class _ChewiePlayerWidgetState extends State<ChewiePlayerWidget> {
       autoPlay: true,
       looping: false,
       fullScreenByDefault: true,
-
       allowFullScreen: true,
-      errorBuilder: (_,__) => Text("Đã xảy ra lỗi"),
+      errorBuilder: (_, __) => Text("Đã xảy ra lỗi"),
       showOptions: true,
       progressIndicatorDelay:
           bufferDelay != null ? Duration(milliseconds: bufferDelay!) : null,
@@ -78,12 +73,12 @@ class _ChewiePlayerWidgetState extends State<ChewiePlayerWidget> {
             iconData: Icons.live_tv_sharp,
             title: 'Toggle Video Src',
           ),
-          OptionItem(
+          /*OptionItem(
             onTap: () => _subtitleController.subtitleUrl =
                 "https://cc.2cdns.com/76/94/76943aa3f5dab048d9043cb9317f4225/eng-2.vtt",
             iconData: Icons.subtitles,
             title: 'Toggle Subtitle',
-          )
+          )*/
         ];
       },
       hideControlsTimer: const Duration(seconds: 3),
@@ -166,7 +161,12 @@ class _ChewiePlayerWidgetState extends State<ChewiePlayerWidget> {
                           ? SubtitleWrapper(
                               videoPlayerController:
                                   _chewieController!.videoPlayerController,
-                              subtitleController: _subtitleController,
+                              subtitleController: SubtitleController(
+                                  subtitleDecoder: SubtitleDecoder.utf8,
+                                  subtitleUrl: state.watchMovieData?.subtitles
+                                          ?.first.url ??
+                                      '',
+                                  subtitleType: SubtitleType.webvtt),
                               subtitleStyle: const SubtitleStyle(
                                   textColor: Colors.redAccent, hasBorder: true),
                               videoChild: Chewie(

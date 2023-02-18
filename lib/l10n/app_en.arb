@@ -1,0 +1,17 @@
+{
+    "language": "English",
+    "@language": {
+        "description": "The current English"
+    },
+    "duration": "Duration",
+    "movieRecent":"Featured movies",
+    "movieRecentShow":"Recent shows",
+    "releaseDate":"Release date",
+    "production":"Production",
+    "casts":"Casts",
+    "episode":"episodes",
+    "showMore":"show more",
+    "showLess":"show less",
+    "recommendations":"Recommendations",
+    "noInfo":"No information"
+}

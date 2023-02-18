@@ -10,6 +10,7 @@ import 'package:cinema/src/persentation/home/bloc/home_bloc.dart';
 import 'package:cinema/src/persentation/home/bloc/home_event.dart';
 import 'package:cinema/src/persentation/home/helper/custom_search_delegate.dart';
 import 'package:cinema/src/persentation/home/widgets/movies_recent_list_view.dart';
+import 'package:cinema/src/persentation/home/widgets/movies_recent_show_list_view.dart';
 import 'package:cinema/src/persentation/home/widgets/upcomming_image.dart';
 import 'package:cinema/src/persentation/home/widgets/upcomming_text.dart';
 import 'package:cinema/src/persentation/search/search_movie_bloc.dart';
@@ -28,7 +29,6 @@ class HomePageScreen extends StatefulWidget {
 }
 
 class _HomePageScreenState extends State<HomePageScreen> {
-
   PageController? pageController;
   double viewportFraction = 0.8;
   double? pageOffset = 0;
@@ -58,7 +58,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
                   viewportFraction: viewportFraction,
                   pageOffset: pageOffset),
               UpcomingText(pageOffset: pageOffset),
-              MoviesRecentListView(),
+              const MoviesRecentListView(),
+              const MoviesRecentShowListView(),
             ],
           ),
         ),

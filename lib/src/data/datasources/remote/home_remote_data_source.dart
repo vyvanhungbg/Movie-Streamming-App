@@ -1,6 +1,7 @@
 import 'package:cinema/src/base/network/apiendpoint.dart';
 import 'package:cinema/src/base/response/array_response.dart';
 import 'package:cinema/src/model/movie_response_model.dart';
+import 'package:cinema/src/model/recent_show_entity.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
@@ -16,6 +17,9 @@ abstract class HomeRemoteDataSource {
 
   @GET(ApiEndPoints.recentMovies)
   Future<HttpResponse<List<MovieResponseModel>>> getMoviesRecent();
+
+  @GET(ApiEndPoints.recentShow)
+  Future<HttpResponse<List<RecentShowEntity>>> getMoviesRecentShow();
 
   @GET(ApiEndPoints.info)
   Future<HttpResponse<MovieResponseModel?>> getMoviesById(String id);

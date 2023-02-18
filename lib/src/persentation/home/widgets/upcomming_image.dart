@@ -2,6 +2,7 @@ import 'dart:math';
 import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cinema/generated/assets.dart';
 import 'package:cinema/src/base/data/data_status.dart';
 import 'package:cinema/src/persentation/home/bloc/home_bloc.dart';
 import 'package:cinema/src/persentation/home/bloc/home_state.dart';
@@ -25,11 +26,11 @@ class UpcomingSliderImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    void pushUserNormal(String idMovie) {
+    void navigateDetailMovieWithIdMovie(String idMovie) {
       Navigator.pushNamed(context, Routers.detail, arguments: {'id': idMovie});
     }
 
-    return Container(
+    return SizedBox(
       width: double.infinity,
       height: MediaQuery.of(context).size.height * 0.6,
       child: BlocBuilder<HomeBloc, HomeState>(
@@ -45,9 +46,8 @@ class UpcomingSliderImage extends StatelessWidget {
             return Stack(
               children: [
                 Positioned.fill(
-                  child: CachedNetworkImage(
-                    imageUrl:
-                        "https://www.phoneworld.com.pk/wp-content/uploads/2020/10/seo-watch-free-link-preview.jpg",
+                  child: Image.asset(
+                    Assets.imagesImgBackgroundHeader,
                     fit: BoxFit.fill,
                     width: double.infinity,
                   ),
@@ -80,11 +80,11 @@ class UpcomingSliderImage extends StatelessWidget {
                         transform: Matrix4.identity()
                           ..setEntry(3, 2, 0.001)
                           ..rotateY(-angle)
-                          ..rotateZ(angle * 0.4),
+                          ..rotateZ(angle * 0.2),
                         alignment: Alignment.center,
                         child: GestureDetector(
                           onTap: () {
-                            pushUserNormal(item.id ?? '');
+                            navigateDetailMovieWithIdMovie(item.id ?? '');
                           },
                           child: Card(
                             elevation: 2,
@@ -98,7 +98,7 @@ class UpcomingSliderImage extends StatelessWidget {
                                     child: CircularProgressIndicator(),
                                   ),
                                   errorWidget: (context, url, error) =>
-                                      const Text('Không có ảnh '),
+                                      Image.asset(Assets.imagesImgError),
                                 ),
                                 Positioned(
                                   bottom: 0,
@@ -129,11 +129,10 @@ class UpcomingSliderImage extends StatelessWidget {
                   child: Align(
                     alignment: Alignment.topRight,
                     child: IconButton(
-                      icon: Icon(Icons.search, color: Colors.white),
+                      icon: const Icon(Icons.search, color: Colors.white),
                       onPressed: () {
                         final blocSearch =
                             BlocProvider.of<SearchMovieBloc>(context);
-                        print('____onpress${blocSearch == null}');
                         showSearch(
                             context: context,
                             delegate:
@@ -145,7 +144,7 @@ class UpcomingSliderImage extends StatelessWidget {
               ],
             );
           } else {
-            return const Text("Lỗi");
+            return Image.asset(Assets.imagesImgError);
           }
         },
       ),

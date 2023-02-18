@@ -1,10 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cinema/generated/assets.dart';
 import 'package:cinema/src/base/data/data_status.dart';
 import 'package:cinema/src/persentation/home/bloc/home_bloc.dart';
 import 'package:cinema/src/persentation/home/bloc/home_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../../routers.dart';
 
 class MoviesRecentListView extends StatelessWidget {
@@ -12,7 +13,7 @@ class MoviesRecentListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    pushUserNormal(String idMovie) {
+    navigateDetailMovieWithIdMovie(String idMovie) {
       Navigator.pushNamed(context, Routers.detail, arguments: {'id': idMovie});
     }
 
@@ -21,29 +22,30 @@ class MoviesRecentListView extends StatelessWidget {
       children: [
         Container(
           margin: const EdgeInsets.only(top: 12, left: 12),
-          child: const Text(
-            "Movies Recent",
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+          child: Text(
+            AppLocalizations.of(context)?.movieRecent ?? '',
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
           ),
         ),
         Container(
-          margin: EdgeInsets.all(8),
+          margin: const EdgeInsets.all(8),
           height: 250,
           width: double.infinity,
           child: BlocBuilder<HomeBloc, HomeState>(
               buildWhen: (previous, current) => true,
               builder: (context, state) {
                 final list = state.moviesRecentData ?? [];
-                if (state.moviesTrendingStatus == DataStatus.loading) {
+                if (state.moviesRecentStatus == DataStatus.loading) {
                   return const Center(child: CircularProgressIndicator());
-                } else {
+                } else if (state.moviesRecentStatus == DataStatus.success &&
+                    list.isNotEmpty) {
                   return ListView.builder(
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
                       final item = list[index];
                       return GestureDetector(
                         onTap: () {
-                          pushUserNormal(item.id ?? '');
+                          navigateDetailMovieWithIdMovie(item.id ?? '');
                         },
                         child: Container(
                           //decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(10))),
@@ -55,6 +57,8 @@ class MoviesRecentListView extends StatelessWidget {
                     },
                     itemCount: list.length,
                   );
+                } else {
+                  return Image.asset(Assets.imagesImgError);
                 }
               }),
         ),

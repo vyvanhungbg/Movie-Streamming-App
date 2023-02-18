@@ -1,0 +1,18 @@
+{
+    "language": "Vietnam",
+    "@language": {
+        "description": "The current English"
+    },
+    "duration": "Thời lượng",
+    "movieRecent":"Phim nổi bật",
+    "movieRecentShow":"Phim chiếu gần đây",
+     "releaseDate":"Ra mắt",
+     "production":"Nhà sản xuất",
+     "casts":"Diễn viên",
+     "episode":"Tập phim",
+     "showLess":"Đóng",
+         "showMore":"Xem thêm",
+         "recommendations":"Gợi ý cho bạn",
+    "noInfo":"Không có thông tin"
+
+}

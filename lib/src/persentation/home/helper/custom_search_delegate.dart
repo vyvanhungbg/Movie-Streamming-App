@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cinema/routers.dart';
 import 'package:cinema/src/base/data/data_status.dart';
 import 'package:cinema/src/persentation/search/search_movie_bloc.dart';
 import 'package:flutter/material.dart';
@@ -40,13 +41,18 @@ class CustomSearchDelegate extends SearchDelegate<String> {
   @override
   Widget buildResults(BuildContext context) {
     blocSearch.add(SearchMovieStarted(searchKey: query));
+    void pushUserNormal(String idMovie) {
+      Navigator.pushNamed(context, Routers.detail, arguments: {'id': idMovie});
+    }
 
     return BlocBuilder<SearchMovieBloc, SearchMovieState>(
         buildWhen: (privious, current) =>
-            current.searchMovieStatus == DataStatus.success || current.searchMovieStatus == DataStatus.loading,
+            current.searchMovieStatus == DataStatus.success ||
+            current.searchMovieStatus == DataStatus.loading,
         builder: (context, state) {
           final movies = state.searchMovieData?.results ?? [];
-          if(state.searchMovieStatus == DataStatus.success && movies.isNotEmpty ){
+          if (state.searchMovieStatus == DataStatus.success &&
+              movies.isNotEmpty) {
             return GridView.count(
               // crossAxisCount is the number of columns
               crossAxisCount: 2,
@@ -54,28 +60,32 @@ class CustomSearchDelegate extends SearchDelegate<String> {
               children: List.generate(movies.length ?? 0, (index) {
                 return GestureDetector(
                   onTap: () {
-                    //pushUserNormal(item.id ?? '');
+                    pushUserNormal(movies[index].id ?? '');
                   },
                   child: Container(
                     //decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(10))),
                     margin: const EdgeInsets.all(3),
 
-                    child: CachedNetworkImage(imageUrl: movies[index].image ?? '',fit: BoxFit.fill),
+                    child: CachedNetworkImage(
+                        imageUrl: movies[index].image ?? '', fit: BoxFit.fill),
                   ),
                 );
               }),
             );
-          }else if(state.searchMovieStatus == DataStatus.loading){
+          } else if (state.searchMovieStatus == DataStatus.loading) {
             return const Center(child: CircularProgressIndicator());
-          }else{
-            return  Center(child: Container(margin : EdgeInsets.all(8),child: Text("Không tìm thấy bộ film nào phù hợp", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 26),)));
+          } else {
+            return Center(
+                child: Container(
+                    margin: const EdgeInsets.all(8),
+                    child: const Text(
+                      "Không tìm thấy bộ film nào phù hợp",
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 26),
+                    )));
           }
-
         });
   }
-
-
-
 
   @override
   Widget buildSuggestions(BuildContext context) {
@@ -86,7 +96,9 @@ class CustomSearchDelegate extends SearchDelegate<String> {
     return ListView.separated(
       separatorBuilder: (context, index) => const Divider(),
       itemBuilder: (_, index) => GestureDetector(
-        child: ListTile(title: Text(matchQuery[index]),),
+        child: ListTile(
+          title: Text(matchQuery[index]),
+        ),
         onTap: () {
           query = matchQuery[index];
         },

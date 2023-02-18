@@ -2,8 +2,9 @@ import 'package:cinema/src/base/data/data_status.dart';
 import 'package:cinema/src/persentation/home/bloc/home_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../bloc/home_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class UpcomingText extends StatelessWidget {
   const UpcomingText({
@@ -35,7 +36,14 @@ class UpcomingText extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  "Thời lượng: ${list[index].duration ?? 'chưa có thông tin'}",
+                  "${AppLocalizations.of(context)!.duration}: ${list[index].duration ?? '${AppLocalizations.of(context)?.noInfo}'}",
+                  style: const TextStyle(
+                    color: Colors.black,
+                    fontSize: 18,
+                  ),
+                ),
+                Text(
+                  "${AppLocalizations.of(context)!.releaseDate}: ${list[index].releaseDate ?? '${AppLocalizations.of(context)?.noInfo}'}",
                   style: const TextStyle(
                     color: Colors.black,
                     fontSize: 18,

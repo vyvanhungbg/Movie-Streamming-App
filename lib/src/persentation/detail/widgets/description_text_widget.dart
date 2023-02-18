@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DescriptionTextWidget extends StatefulWidget {
   final String text;
@@ -34,29 +35,29 @@ class _DescriptionTextWidgetState extends State<DescriptionTextWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-
       padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
       child: secondHalf.isEmpty
           ? Text(firstHalf)
           : InkWell(
-            onTap: () {
-              setState(() {
-                flag = !flag;
-              });
-            },
-            child: RichText(
-              text: TextSpan(
-                  text:
-                      flag ? ("$firstHalf...") : (firstHalf + secondHalf),
-                  style: widget.textStyle,
-                  children: [
-                    TextSpan(
-                      text: flag ? "show more" : "show less",
-                      style: const TextStyle(color: Colors.blue),
-                    )
-                  ]),
+              onTap: () {
+                setState(() {
+                  flag = !flag;
+                });
+              },
+              child: RichText(
+                text: TextSpan(
+                    text: flag ? ("$firstHalf...") : (firstHalf + secondHalf),
+                    style: widget.textStyle,
+                    children: [
+                      TextSpan(
+                        text: flag
+                            ? AppLocalizations.of(context)!.showMore
+                            : AppLocalizations.of(context)!.showLess,
+                        style: const TextStyle(color: Colors.blue),
+                      )
+                    ]),
+              ),
             ),
-          ),
     );
   }
 }
