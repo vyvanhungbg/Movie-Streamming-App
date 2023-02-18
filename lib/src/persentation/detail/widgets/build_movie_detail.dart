@@ -5,6 +5,7 @@ import 'package:cinema/generated/assets.dart';
 import 'package:cinema/routers.dart';
 import 'package:cinema/src/base/data/data_status.dart';
 import 'package:cinema/src/base/network/querymodel/watch_paramerter.dart';
+import 'package:cinema/src/model/movie_detail.dart';
 import 'package:cinema/src/persentation/detail/bloc/detail_movie_bloc.dart';
 import 'package:cinema/src/persentation/detail/widgets/description_text_widget.dart';
 import 'package:flutter/material.dart';
@@ -16,11 +17,13 @@ class BuildMovieDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    pushMovieParameterNormal(String episodeId, String mediaId, Server server) {
+    pushMovieParameterNormal(String episodeId, String mediaId, Server server,
+        MovieDetail movieDetail) {
       Navigator.pushNamed(context, Routers.watching, arguments: {
         'episodeId': episodeId,
         'mediaId': mediaId,
-        'server': server.name
+        'server': server.name,
+        'movieDetail': movieDetail
       });
     }
 
@@ -29,6 +32,7 @@ class BuildMovieDetail extends StatelessWidget {
         required String episodeId,
         required String mediaId,
         required Server server,
+        required MovieDetail movieDetail,
         double dy = 1.0}) {
       return Transform.translate(
         offset: Offset(0.0, dy),
@@ -36,7 +40,7 @@ class BuildMovieDetail extends StatelessWidget {
           elevation: 3,
           child: InkWell(
             onTap: () {
-              pushMovieParameterNormal(episodeId, mediaId, server);
+              pushMovieParameterNormal(episodeId, mediaId, server, movieDetail);
             },
             child: Container(
               padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 5),
@@ -161,18 +165,21 @@ class BuildMovieDetail extends StatelessWidget {
                     title: "Server sao hỏa",
                     episodeId: movie.episodes!.first.id,
                     mediaId: movie.id!,
-                    server: Server.mixdrop),
+                    server: Server.mixdrop,
+                    movieDetail: movie),
                 buildOptionsServerWatchMovie(
                     title: "Server siêu lag",
                     episodeId: movie.episodes!.first.id,
                     mediaId: movie.id!,
                     server: Server.upcloud,
+                    movieDetail: movie,
                     dy: -15),
                 buildOptionsServerWatchMovie(
                     title: "Server trái đất",
                     episodeId: movie.episodes!.first.id,
                     mediaId: movie.id!,
-                    server: Server.vidcloud),
+                    server: Server.vidcloud,
+                    movieDetail: movie),
               ],
             ),
             Container(
@@ -214,7 +221,7 @@ class BuildMovieDetail extends StatelessWidget {
                         return InkWell(
                           onTap: () {
                             pushMovieParameterNormal(movie.episodes![index].id,
-                                movie.id!, Server.upcloud);
+                                movie.id!, Server.upcloud, movie);
                           },
                           child: Card(
                             child: ListTile(

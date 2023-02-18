@@ -42,7 +42,7 @@ dependencies:
   cached_network_image: ^3.2.3
   chewie: ^1.4.0
   video_player: ^2.5.1
-  subtitle_wrapper_package: ^2.1.0
+  subtitle_wrapper_package: ^2.1.1
   dio_logging_interceptor: ^1.0.1
   firebase_core: ^2.5.0
   firebase_crashlytics: ^3.0.12
@@ -50,7 +50,9 @@ dependencies:
     sdk: flutter
   intl_translation: ^0.18.0
   get_it: any
-  better_player: ^0.0.83
+  better_player:
+    git:
+      url: https://github.com/tintran-dev/betterplayer.git
 
 dev_dependencies:
   flutter_test:
