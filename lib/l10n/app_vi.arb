@@ -11,8 +11,11 @@
      "casts":"Diễn viên",
      "episode":"Tập phim",
      "showLess":"Đóng",
-         "showMore":"Xem thêm",
-         "recommendations":"Gợi ý cho bạn",
+     "list":"Danh sách",
+     "genres":"Thể loại",
+     "showMore":"Xem thêm",
+       "eps":"Tập",
+      "recommendations":"Gợi ý cho bạn",
     "noInfo":"Không có thông tin"
 
 }

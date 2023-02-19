@@ -204,6 +204,13 @@ class BuildMovieDetail extends StatelessWidget {
                 ],
               ),
             ),
+            Container(
+              margin: const EdgeInsets.all(12),
+              child: TitleAndContentWidget(
+                title: "${AppLocalizations.of(context)!.genres}: ",
+                content: movie.genres?.join(", ") ?? '__',
+              ),
+            ),
             Visibility(
               visible: movie.episodes!.length > 1,
               child: Column(
@@ -215,27 +222,35 @@ class BuildMovieDetail extends StatelessWidget {
                         style: const TextStyle(
                             fontSize: 24, fontWeight: FontWeight.bold),
                       )),
-                  ListView.separated(
-                      separatorBuilder: (context, index) => const Divider(),
-                      itemBuilder: (_, index) {
-                        return InkWell(
-                          onTap: () {
-                            pushMovieParameterNormal(movie.episodes![index].id,
-                                movie.id!, Server.upcloud, movie);
+                  ExpansionTile(
+                    title: Text(AppLocalizations.of(context)!.list),
+                    children: [
+                      ListView.separated(
+                          separatorBuilder: (context, index) => const Divider(),
+                          itemBuilder: (_, index) {
+                            return InkWell(
+                              onTap: () {
+                                pushMovieParameterNormal(
+                                    movie.episodes![index].id,
+                                    movie.id!,
+                                    Server.upcloud,
+                                    movie);
+                              },
+                              child: Card(
+                                child: ListTile(
+                                  leading: CircleAvatar(
+                                      child: Text((index + 1).toString())),
+                                  title: Text(movie.episodes![index].title),
+                                ),
+                              ),
+                            );
                           },
-                          child: Card(
-                            child: ListTile(
-                              leading: CircleAvatar(
-                                  child: Text((index + 1).toString())),
-                              title: Text(movie.episodes![index].title),
-                            ),
-                          ),
-                        );
-                      },
-                      itemCount: movie.episodes?.length ?? 0,
-                      scrollDirection: Axis.vertical,
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics()),
+                          itemCount: movie.episodes?.length ?? 0,
+                          scrollDirection: Axis.vertical,
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics())
+                    ],
+                  ),
                 ],
               ),
             ),

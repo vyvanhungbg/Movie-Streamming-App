@@ -44,6 +44,7 @@ dependencies:
   video_player: ^2.5.1
   subtitle_wrapper_package: ^2.1.1
   dio_logging_interceptor: ^1.0.1
+
   firebase_core: ^2.5.0
   firebase_crashlytics: ^3.0.12
   flutter_localizations:
@@ -60,6 +61,8 @@ dev_dependencies:
   flutter_gen_runner:
   retrofit_generator: '>=4.0.0 <5.0.0'
   build_runner:
+  flutter_native_splash: ^2.2.11
+
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -76,6 +79,16 @@ flutter_icons:
 # following page: https://dart.dev/tools/pub/pubspec
 
 # The following section is specific to Flutter packages.
+flutter_native_splash:
+    color: "#161616"
+    image: "assets/images/img_splash.png"
+    fill: true
+    android_gravity: fill
+    ios_content_mode: scaleAspectFit
+    android_12:
+      image: "assets/images/img_splash.png"
+    web: false
+
 flutter:
   generate: true
   # The following line ensures that the Material Icons font is

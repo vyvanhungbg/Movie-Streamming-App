@@ -29,17 +29,32 @@ class BetterLayerVideo extends StatefulWidget {
 
 class _BetterLayerVideoState extends State<BetterLayerVideo> {
   late BetterPlayerController _betterPlayerController;
-  GlobalKey _betterPlayerKey = GlobalKey();
+  final GlobalKey _betterPlayerKey = GlobalKey();
+
+  final bufferingConfiguration = const BetterPlayerBufferingConfiguration(
+    minBufferMs: 50000,
+    maxBufferMs: 13107200,
+    bufferForPlaybackMs: 2500,
+    bufferForPlaybackAfterRebufferMs: 5000,
+  );
 
   @override
   void initState() {
     super.initState();
     _betterPlayerController = BetterPlayerController(BetterPlayerConfiguration(
+      translations: [
+        BetterPlayerTranslations(
+          languageCode: 'vi',
+        ),
+        BetterPlayerTranslations(
+          languageCode: 'en',
+        ),
+      ],
       placeholder: CachedNetworkImage(
         imageUrl: widget.movieDetail.cover ?? '',
       ),
       autoPlay: true,
-      looping: true,
+      looping: false,
     ));
     _betterPlayerController
         .isPictureInPictureSupported()
@@ -90,38 +105,46 @@ class _BetterLayerVideoState extends State<BetterLayerVideo> {
             if (state.watchMovieStatus == DataStatus.success &&
                 state.watchMovieData != null) {
               final watchMovie = state.watchMovieData;
-              final sourceSubtitle = state.watchMovieData?.subtitles
+              final sourceSubtitle = watchMovie?.subtitles
                       ?.map((element) => BetterPlayerSubtitlesSource(
                             type: BetterPlayerSubtitlesSourceType.network,
+                            selectedByDefault:
+                                element.lang.toLowerCase() == 'en'
+                                    ? true
+                                    : false,
                             name: element.lang,
                             urls: [element.url],
                           ))
                       .toList() ??
                   [];
 
+              final cacheConfiguration = BetterPlayerCacheConfiguration(
+                useCache: true,
+                preCacheSize: 10 * 1024 * 1024,
+                maxCacheSize: 10 * 1024 * 1024,
+                maxCacheFileSize: 10 * 1024 * 1024,
+                key: widget.movieDetail.id,
+              );
+
               final notification = BetterPlayerNotificationConfiguration(
                   showNotification: true,
                   title: widget.movieDetail.title,
                   author: widget.movieDetail.production,
                   imageUrl: widget.movieDetail.cover);
-              const bufferingConfiguration = BetterPlayerBufferingConfiguration(
-                minBufferMs: 50000,
-                maxBufferMs: 13107200,
-                bufferForPlaybackMs: 2500,
-                bufferForPlaybackAfterRebufferMs: 5000,
-              );
+
               Map<String, String> resolutions = {};
 
-              state.watchMovieData?.sources?.forEach((e) {
+              watchMovie?.sources?.forEach((e) {
                 resolutions[e.quality] = e.url;
               });
+
               _betterPlayerController
                   .setupDataSource(
                 BetterPlayerDataSource(
                     resolutions: resolutions,
                     BetterPlayerDataSourceType.network,
                     videoFormat: BetterPlayerVideoFormat.hls,
-                    state.watchMovieData?.sources?.first.url ?? '',
+                    watchMovie?.sources?.first.url ?? '',
                     subtitles: sourceSubtitle,
                     notificationConfiguration: notification,
                     bufferingConfiguration: bufferingConfiguration),
@@ -130,7 +153,7 @@ class _BetterLayerVideoState extends State<BetterLayerVideo> {
                 ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                     content: Text("Tìm thấy film chuẩn bị chiếu !")));
                 bloc.add(WatchMovieBegin());
-              }).catchError((error) async {
+              }).catchError((error) {
                 tryNextServerWhenError();
               });
             }
@@ -147,12 +170,10 @@ class _BetterLayerVideoState extends State<BetterLayerVideo> {
           builder: (context, state) {
             return Column(
               children: [
-                Expanded(
-                  child: Center(
-                    child: BetterPlayer(
-                      key: _betterPlayerKey,
-                      controller: _betterPlayerController,
-                    ),
+                Center(
+                  child: BetterPlayer(
+                    key: _betterPlayerKey,
+                    controller: _betterPlayerController,
                   ),
                 ),
               ],

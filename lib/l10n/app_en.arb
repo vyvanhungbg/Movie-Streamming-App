@@ -12,6 +12,9 @@
     "episode":"episodes",
     "showMore":"show more",
     "showLess":"show less",
+    "list":"List",
+    "genres":"genres",
+    "eps":"EPS",
     "recommendations":"Recommendations",
     "noInfo":"No information"
 }

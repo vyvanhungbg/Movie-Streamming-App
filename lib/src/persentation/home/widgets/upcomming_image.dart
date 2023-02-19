@@ -10,7 +10,7 @@ import 'package:cinema/src/persentation/home/helper/custom_search_delegate.dart'
 import 'package:cinema/src/persentation/search/search_movie_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import '../../../../routers.dart';
 
 class UpcomingSliderImage extends StatelessWidget {
@@ -33,7 +33,8 @@ class UpcomingSliderImage extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       height: MediaQuery.of(context).size.height * 0.6,
-      child: BlocBuilder<HomeBloc, HomeState>(
+      child: BlocConsumer<HomeBloc, HomeState>(
+        listener: (context, state) {},
         buildWhen: (current, previous) {
           return current.moviesTrendingStatus == DataStatus.loading ||
               current.moviesTrendingStatus == DataStatus.success;

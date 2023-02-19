@@ -43,6 +43,8 @@ class MoviesRecentShowListView extends StatelessWidget {
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
                       final item = list[index];
+                      final lastEpisode =
+                          item.latestEpisode?.replaceAll('EPS', '') ?? '';
                       return GestureDetector(
                         onTap: () {
                           navigateDetailMovieWithIdMovie(item.id ?? '');
@@ -51,7 +53,16 @@ class MoviesRecentShowListView extends StatelessWidget {
                           //decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(10))),
                           margin: const EdgeInsets.all(8),
 
-                          child: CachedNetworkImage(imageUrl: item.image ?? ''),
+                          child: Stack(children: [
+                            CachedNetworkImage(imageUrl: item.image ?? ''),
+                            Card(
+                              child: Container(
+                                padding: const EdgeInsets.all(5),
+                                child: Text(AppLocalizations.of(context)!.eps +
+                                    lastEpisode),
+                              ),
+                            ),
+                          ]),
                         ),
                       );
                     },
