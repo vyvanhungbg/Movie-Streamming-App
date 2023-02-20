@@ -11,13 +11,15 @@ class WatchMovieStarted extends WatchMovieEvent {}
 class WatchMovieGetData extends WatchMovieEvent {
   final WatchParameter parameter;
 
-  WatchMovieGetData(this.parameter){
-    print("___truy van "+parameter.toJson().toString());
-  }
+  WatchMovieGetData(this.parameter);
 }
 
-class WatchMovieBegin extends WatchMovieEvent{
+class WatchMovieBegin extends WatchMovieEvent {}
 
+class GetDurationMovieProgressEvent extends WatchMovieEvent {
+  final MovieProgress movieProgress;
+
+  GetDurationMovieProgressEvent({required this.movieProgress});
 }
 
 class WatchMovieFinished extends WatchMovieEvent {}
@@ -25,6 +27,3 @@ class WatchMovieFinished extends WatchMovieEvent {}
 class WatchMoviePaused extends WatchMovieEvent {}
 
 class WatchMovieCancelled extends WatchMovieEvent {}
-
-
-

@@ -3,7 +3,7 @@ import 'package:cinema/src/data/repositories/detail_movie_repository.dart';
 import 'package:cinema/src/model/favorite_entity.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../base/usecase/usecase.dart';
+import '../../../base/usecase/usecase.dart';
 
 @Singleton()
 class AddFavoriteMovieUseCase implements UseCase<DataState, FavoriteEntity> {

@@ -14,11 +14,6 @@ class FavoriteScreen extends StatefulWidget {
 class _FavoriteScreenState extends State<FavoriteScreen> {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => FavoriteMovieBloc(getIt.get())
-        ..add(FavoriteMovieStaredEvent())
-        ..add(FavoriteMovieGetMovieFavoriteEvent()),
-      child: BodyFavoriteWidget(),
-    );
+    return const BodyFavoriteWidget();
   }
 }

@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:cinema/l10n/l10n.dart';
 import 'package:cinema/routers.dart';
 import 'package:cinema/src/base/network/dio_client.dart';
+import 'package:cinema/src/persentation/detail/bloc/detail_movie_bloc.dart';
+import 'package:cinema/src/persentation/favorite/bloc/favorite_movie_bloc.dart';
 import 'package:cinema/src/persentation/home/bloc/home_bloc.dart';
 import 'package:cinema/src/persentation/home/bloc/home_event.dart';
 import 'package:cinema/src/persentation/search/search_movie_bloc.dart';
@@ -48,13 +50,25 @@ class MyApp extends StatelessWidget {
                   getIt.get(),
                   getIt.get(),
                   getIt.get(),
+                  getIt.get(),
+                  getIt.get(),
+                  getIt.get(),
+                  getIt.get(),
                 )
                   ..add(HomeStarted())
                   ..add(HomeGetMoviesTrending())
                   ..add(HomeGetMoviesRecent())
                   ..add(HomeGetMoviesRecentShow())),
         BlocProvider<SearchMovieBloc>(
-            create: (context) => SearchMovieBloc(getIt.get()))
+            create: (context) => SearchMovieBloc(getIt.get())),
+        BlocProvider<FavoriteMovieBloc>(
+            create: (context) => FavoriteMovieBloc(getIt.get())
+              ..add(FavoriteMovieStaredEvent())
+              ..add(FavoriteMovieGetMovieFavoriteEvent())),
+        BlocProvider<DetailMovieBloc>(
+            create: (context) => DetailMovieBloc(
+                getIt.get(), getIt.get(), getIt.get(), getIt.get())
+              ..add(DetailStarted())),
       ],
       child: MaterialApp(
         title: 'Cinema',

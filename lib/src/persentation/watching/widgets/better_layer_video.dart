@@ -1,9 +1,15 @@
+import 'dart:async';
+
 import 'package:better_player/better_player.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cinema/src/base/data/data_status.dart';
 import 'package:cinema/src/base/network/querymodel/watch_paramerter.dart';
 import 'package:cinema/src/model/movie_detail.dart';
+import 'package:cinema/src/model/movie_progress.dart';
+import 'package:cinema/src/persentation/home/bloc/home_bloc.dart';
+import 'package:cinema/src/persentation/home/bloc/home_event.dart';
 import 'package:cinema/src/persentation/watching/bloc/watch_movie_bloc.dart';
+import 'package:cinema/src/utils/extension/string_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -30,6 +36,9 @@ class BetterLayerVideo extends StatefulWidget {
 class _BetterLayerVideoState extends State<BetterLayerVideo> {
   late BetterPlayerController _betterPlayerController;
   final GlobalKey _betterPlayerKey = GlobalKey();
+  Completer<void> completer = Completer();
+  Duration? totalOfMovie;
+  late HomeBloc homeBloc;
 
   final bufferingConfiguration = const BetterPlayerBufferingConfiguration(
     minBufferMs: 50000,
@@ -41,6 +50,7 @@ class _BetterLayerVideoState extends State<BetterLayerVideo> {
   @override
   void initState() {
     super.initState();
+    homeBloc = BlocProvider.of<HomeBloc>(context);
     _betterPlayerController = BetterPlayerController(BetterPlayerConfiguration(
       translations: [
         BetterPlayerTranslations(
@@ -67,10 +77,36 @@ class _BetterLayerVideoState extends State<BetterLayerVideo> {
             });
   }
 
+  Future<void> backup() async {
+    final currentMovie = widget.movieDetail;
+    final now = DateTime.now().microsecondsSinceEpoch.toString();
+    _betterPlayerController.videoPlayerController!.position
+        .then((currentProgress) async {
+      print('________chuan bị lưu ');
+      final maxProgress = totalOfMovie ?? currentProgress;
+      final MovieProgress movieProgress = MovieProgress.init(
+          idMovie: widget.watchParameter.mediaId,
+          image: currentMovie.image,
+          currentProgress: currentProgress.toString(),
+          maxProgress: maxProgress.toString(),
+          lastWatched: now,
+          episode: widget.watchParameter.episodeId);
+
+      homeBloc.add(HomeSaveMovieProgressEvent(movieProgress: movieProgress));
+
+      print(
+          '_______da lưu thông tin cuối sau khi xem ${movieProgress.toString()}');
+      await completer.future;
+    });
+  }
+
   @override
   void dispose() {
-    super.dispose();
+    backup();
+
+    completer.complete();
     _betterPlayerController.dispose(forceDispose: true);
+    super.dispose();
   }
 
   tryNextServerWhenError() {
@@ -147,11 +183,25 @@ class _BetterLayerVideoState extends State<BetterLayerVideo> {
                     watchMovie?.sources?.first.url ?? '',
                     subtitles: sourceSubtitle,
                     notificationConfiguration: notification,
+                    cacheConfiguration: cacheConfiguration,
                     bufferingConfiguration: bufferingConfiguration),
               )
                   .then((response) {
                 ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                     content: Text("Tìm thấy film chuẩn bị chiếu !")));
+
+                totalOfMovie = _betterPlayerController
+                    .videoPlayerController!.value.duration;
+
+                final lastPosition = state.movieProgressData?.currentProgress;
+                if (lastPosition != null) {
+                  _betterPlayerController.seekTo(lastPosition.toDuration());
+                  print('__________chuyen toi phut ${lastPosition}');
+                } else {
+                  print(
+                      '________last position ${state.movieProgressData.toString()}');
+                }
+
                 bloc.add(WatchMovieBegin());
               }).catchError((error) {
                 tryNextServerWhenError();

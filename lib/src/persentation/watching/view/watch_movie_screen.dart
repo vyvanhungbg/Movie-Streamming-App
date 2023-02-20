@@ -5,8 +5,9 @@ import 'package:cinema/src/base/network/querymodel/watch_paramerter.dart';
 import 'package:cinema/src/data/datasources/remote/watch_movie_remote_data_source.dart';
 import 'package:cinema/src/data/repositories/watching/watch_movie_repository.dart';
 import 'package:cinema/src/data/repositories/watching/watch_movie_repository_impl.dart';
-import 'package:cinema/src/domain/use_cases/get_watch_movie_use_case.dart';
+import 'package:cinema/src/domain/use_cases/detail/get_watch_movie_use_case.dart';
 import 'package:cinema/src/model/movie_detail.dart';
+import 'package:cinema/src/model/movie_progress.dart';
 import 'package:cinema/src/persentation/watching/bloc/watch_movie_bloc.dart';
 import 'package:cinema/src/persentation/watching/widgets/better_layer_video.dart';
 import 'package:flutter/material.dart';
@@ -24,10 +25,6 @@ class WatchMovieScreen extends StatefulWidget {
 }
 
 class _WatchMovieScreenState extends State<WatchMovieScreen> {
-  final WatchMovieRepository _watchMovieRepository = WatchMovieRepositoryImpl(
-      WatchMovieRemoteDataSource(DioClient.provideDioClient(),
-          baseUrl: ApiEndPoints.baseUrl));
-
   @override
   Widget build(BuildContext context) {
     final modalRoute = ModalRoute.of(context)!.settings.arguments as Map;
@@ -40,9 +37,11 @@ class _WatchMovieScreenState extends State<WatchMovieScreen> {
         episodeId: episodeId, mediaId: mediaId, server: serverName);
     return Scaffold(
       body: BlocProvider(
-        create: (context) => WatchMovieBloc(getIt.get())
+        create: (context) => WatchMovieBloc(getIt.get(), getIt.get())
           ..add(WatchMovieStarted())
-          ..add(WatchMovieGetData(watchParameter)),
+          ..add(WatchMovieGetData(watchParameter))
+          ..add(GetDurationMovieProgressEvent(
+              movieProgress: MovieProgress.init(idMovie: mediaId))),
         child: BetterLayerVideo(
           watchParameter: watchParameter,
           movieDetail: movieDetail,

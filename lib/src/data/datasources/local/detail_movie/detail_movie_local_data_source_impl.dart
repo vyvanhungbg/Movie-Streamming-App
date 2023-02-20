@@ -1,5 +1,5 @@
 import 'package:cinema/src/base/sqfite/favorite_table.dart';
-import 'package:cinema/src/data/datasources/local/DetailMovieLocalDataSource.dart';
+import 'package:cinema/src/data/datasources/local/detail_movie/detail_movie_local_data_source.dart';
 import 'package:cinema/src/model/favorite_entity.dart';
 
 class DetailMovieLocalDataSourceImpl implements DetailMovieLocalDataSource {

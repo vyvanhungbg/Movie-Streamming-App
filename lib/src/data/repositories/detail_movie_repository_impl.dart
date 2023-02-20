@@ -2,7 +2,8 @@ import 'dart:io';
 
 import 'package:cinema/src/base/data/data_state.dart';
 import 'package:cinema/src/base/eror/base_error.dart';
-import 'package:cinema/src/data/datasources/local/DetailMovieLocalDataSource.dart';
+import 'package:cinema/src/data/datasources/local/detail_movie/detail_movie_local_data_source.dart';
+
 import 'package:cinema/src/data/datasources/remote/detail_movie_remote_data_source.dart';
 import 'package:cinema/src/data/repositories/detail_movie_repository.dart';
 import 'package:cinema/src/model/favorite_entity.dart';

@@ -9,12 +9,30 @@ import 'package:cinema/src/model/favorite_entity.dart';
 import 'package:cinema/src/model/movie_detail.dart';
 import 'package:cinema/src/persentation/detail/bloc/detail_movie_bloc.dart';
 import 'package:cinema/src/persentation/detail/widgets/description_text_widget.dart';
+import 'package:cinema/src/persentation/favorite/bloc/favorite_movie_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class BuildMovieDetail extends StatelessWidget {
-  const BuildMovieDetail({super.key});
+class BuildMovieDetail extends StatefulWidget {
+  final String id;
+
+  const BuildMovieDetail({required this.id, Key? key}) : super(key: key);
+
+  @override
+  State<BuildMovieDetail> createState() => _BuildMovieDetailState();
+}
+
+class _BuildMovieDetailState extends State<BuildMovieDetail> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    final paramaters = {'id': widget.id};
+    BlocProvider.of<DetailMovieBloc>(context)
+      ..add(GetMovieDetail(paramaters))
+      ..add(FindFavoriteMovie(widget.id));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -144,6 +162,8 @@ class BuildMovieDetail extends StatelessWidget {
                                   BlocProvider.of<DetailMovieBloc>(context).add(
                                       FindFavoriteMovie(entityFavorite.id));
                                 }
+                                BlocProvider.of<FavoriteMovieBloc>(context)
+                                    .add(FavoriteMovieGetMovieFavoriteEvent());
                               },
                               child: Icon(
                                 state.actionFavoriteStatus ==
@@ -192,7 +212,7 @@ class BuildMovieDetail extends StatelessWidget {
                     server: Server.mixdrop,
                     movieDetail: movie),
                 buildOptionsServerWatchMovie(
-                    title: "Server siêu lag",
+                    title: "Server mặt trời",
                     episodeId: movie.episodes!.first.id,
                     mediaId: movie.id!,
                     server: Server.upcloud,

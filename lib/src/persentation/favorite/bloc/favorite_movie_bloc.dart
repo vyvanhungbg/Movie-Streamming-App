@@ -4,7 +4,8 @@ import 'package:bloc/bloc.dart';
 import 'package:cinema/src/base/data/data_state.dart';
 import 'package:cinema/src/base/data/data_status.dart';
 import 'package:cinema/src/base/eror/base_error.dart';
-import 'package:cinema/src/domain/use_cases/get_all_movie_favorite_use_case.dart';
+import 'package:cinema/src/domain/use_cases/favorite/get_all_movie_favorite_use_case.dart';
+
 import 'package:cinema/src/model/favorite_entity.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';

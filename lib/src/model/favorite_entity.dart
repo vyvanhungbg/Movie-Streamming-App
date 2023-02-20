@@ -16,4 +16,9 @@ class FavoriteEntity {
       _$FavoriteEntityFromJson(json);
 
   Map<String, dynamic> toJson() => _$FavoriteEntityToJson(this);
+
+  @override
+  String toString() {
+    return 'FavoriteEntity{id: $id, image: $image}';
+  }
 }

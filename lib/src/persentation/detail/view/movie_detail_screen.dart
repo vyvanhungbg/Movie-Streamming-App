@@ -1,15 +1,5 @@
-import 'package:cinema/injection.dart';
-import 'package:cinema/src/base/network/apiendpoint.dart';
-import 'package:cinema/src/base/network/dio_client.dart';
-import 'package:cinema/src/data/datasources/remote/detail_movie_remote_data_source.dart';
-import 'package:cinema/src/data/repositories/detail_movie_repository.dart';
-import 'package:cinema/src/data/repositories/detail_movie_repository_impl.dart';
-import 'package:cinema/src/domain/use_cases/get_detail_movie_use_case.dart';
-import 'package:cinema/src/persentation/detail/bloc/detail_movie_bloc.dart';
 import 'package:cinema/src/persentation/detail/widgets/build_movie_detail.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MovieDetailScreen extends StatefulWidget {
   final paramaters = {'id': "movie/watch-black-panther-ii-66672"};
@@ -28,19 +18,11 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
   @override
   Widget build(BuildContext context) {
     final modalRoute = ModalRoute.of(context)!.settings.arguments as Map;
-    final id = modalRoute["id"] as String;
-    final paramaters = {'id': id};
+    final idMovie = modalRoute["id"] as String;
 
-    return BlocProvider(
-      create: (context) =>
-          DetailMovieBloc(getIt.get(), getIt.get(), getIt.get(), getIt.get())
-            ..add(DetailStarted())
-            ..add(GetMovieDetail(paramaters))
-            ..add(FindFavoriteMovie(id)),
-      child: const Scaffold(
-          body: Center(
-              child: SingleChildScrollView(
-                  child: SafeArea(child: BuildMovieDetail())))),
-    );
+    return Scaffold(
+        body: Center(
+            child: SingleChildScrollView(
+                child: SafeArea(child: BuildMovieDetail(id: idMovie)))));
   }
 }

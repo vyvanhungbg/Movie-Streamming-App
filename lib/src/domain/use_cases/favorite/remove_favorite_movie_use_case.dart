@@ -1,8 +1,7 @@
 import 'package:cinema/src/base/data/data_state.dart';
+import 'package:cinema/src/base/usecase/usecase.dart';
 import 'package:cinema/src/data/repositories/detail_movie_repository.dart';
 import 'package:injectable/injectable.dart';
-
-import '../../base/usecase/usecase.dart';
 
 @Singleton()
 class RemoveFavoriteMovieUseCase implements UseCase<DataState, String> {

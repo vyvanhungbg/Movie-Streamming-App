@@ -57,8 +57,9 @@ class FavoriteTable implements SqlDao<FavoriteEntity> {
         await db.query(tableName, columns: [columnNameID, columnNameImage]);
     if (maps.isNotEmpty) {
       final list = maps
-          .map((e) =>
-              FavoriteEntity.fromJson(maps.first as Map<String, dynamic>))
+          .map((e) => FavoriteEntity.fromJson(e as Map<String, dynamic>))
+          .toList()
+          .reversed
           .toList();
       return list;
     }

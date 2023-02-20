@@ -4,10 +4,10 @@ import 'package:bloc/bloc.dart';
 import 'package:cinema/src/base/data/data_state.dart';
 import 'package:cinema/src/base/data/data_status.dart';
 import 'package:cinema/src/base/eror/base_error.dart';
-import 'package:cinema/src/domain/use_cases/add_favorite_movie_use_case.dart';
-import 'package:cinema/src/domain/use_cases/find_favorite_movie_use_case.dart';
-import 'package:cinema/src/domain/use_cases/get_detail_movie_use_case.dart';
-import 'package:cinema/src/domain/use_cases/remove_favorite_movie_use_case.dart';
+import 'package:cinema/src/domain/use_cases/favorite/add_favorite_movie_use_case.dart';
+import 'package:cinema/src/domain/use_cases/favorite/find_favorite_movie_use_case.dart';
+import 'package:cinema/src/domain/use_cases/detail/get_detail_movie_use_case.dart';
+import 'package:cinema/src/domain/use_cases/favorite/remove_favorite_movie_use_case.dart';
 import 'package:cinema/src/model/favorite_entity.dart';
 import 'package:cinema/src/model/movie_detail.dart';
 import 'package:equatable/equatable.dart';
@@ -45,7 +45,6 @@ class DetailMovieBloc extends Bloc<DetailMovieEvent, DetailMovieState> {
     if (dataState.data != null && dataState is DataSuccess) {
       emit(state.copyWith(actionFavoriteStatus: ActionFavoriteStatus.favorite));
     }
-    print('add' + dataState.toString());
   }
 
   Future<void> removeFavorite(
@@ -56,7 +55,6 @@ class DetailMovieBloc extends Bloc<DetailMovieEvent, DetailMovieState> {
       emit(state.copyWith(
           actionFavoriteStatus: ActionFavoriteStatus.unFavorite));
     }
-    print(dataState.toString());
   }
 
   Future<void> findFavorite(
