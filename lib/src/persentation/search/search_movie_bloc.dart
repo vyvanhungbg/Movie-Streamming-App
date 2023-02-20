@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:cinema/src/base/data/data_state.dart';
 import 'package:cinema/src/base/data/data_status.dart';
-import 'package:cinema/src/base/eror/api_error.dart';
+import 'package:cinema/src/base/eror/base_error.dart';
 import 'package:cinema/src/base/response/array_response.dart';
 import 'package:cinema/src/domain/use_cases/search_movie_use_case.dart';
 import 'package:cinema/src/model/recent_show_entity.dart';

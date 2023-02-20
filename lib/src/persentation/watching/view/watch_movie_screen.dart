@@ -1,3 +1,4 @@
+import 'package:cinema/injection.dart';
 import 'package:cinema/src/base/network/apiendpoint.dart';
 import 'package:cinema/src/base/network/dio_client.dart';
 import 'package:cinema/src/base/network/querymodel/watch_paramerter.dart';
@@ -8,7 +9,6 @@ import 'package:cinema/src/domain/use_cases/get_watch_movie_use_case.dart';
 import 'package:cinema/src/model/movie_detail.dart';
 import 'package:cinema/src/persentation/watching/bloc/watch_movie_bloc.dart';
 import 'package:cinema/src/persentation/watching/widgets/better_layer_video.dart';
-import 'package:cinema/src/persentation/watching/widgets/chewie_player_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -40,10 +40,9 @@ class _WatchMovieScreenState extends State<WatchMovieScreen> {
         episodeId: episodeId, mediaId: mediaId, server: serverName);
     return Scaffold(
       body: BlocProvider(
-        create: (context) =>
-            WatchMovieBloc(GetWatchMovieUseCase(_watchMovieRepository))
-              ..add(WatchMovieStarted())
-              ..add(WatchMovieGetData(watchParameter)),
+        create: (context) => WatchMovieBloc(getIt.get())
+          ..add(WatchMovieStarted())
+          ..add(WatchMovieGetData(watchParameter)),
         child: BetterLayerVideo(
           watchParameter: watchParameter,
           movieDetail: movieDetail,

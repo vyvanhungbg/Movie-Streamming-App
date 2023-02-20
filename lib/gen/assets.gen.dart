@@ -30,8 +30,12 @@ class $AssetsImagesGen {
   AssetGenImage get imgError =>
       const AssetGenImage('assets/images/img_error.png');
 
+  /// File path: assets/images/img_splash.png
+  AssetGenImage get imgSplash =>
+      const AssetGenImage('assets/images/img_splash.png');
+
   /// List of all assets
-  List<AssetGenImage> get values => [imgBackgroundHeader, imgError];
+  List<AssetGenImage> get values => [imgBackgroundHeader, imgError, imgSplash];
 }
 
 class Assets {

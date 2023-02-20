@@ -1,8 +1,8 @@
-class ApiError {
+class BaseError {
   final int? code;
   final String? message;
 
-  ApiError({this.code, this.message});
+  BaseError({this.code, this.message});
 
   @override
   String toString() {

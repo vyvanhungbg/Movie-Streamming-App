@@ -1,8 +1,8 @@
-import 'package:cinema/src/base/eror/api_error.dart';
+import 'package:cinema/src/base/eror/base_error.dart';
 
 abstract class DataState<T> {
   final T? data;
-  final ApiError? error;
+  final BaseError? error;
 
   const DataState({this.data, this.error});
 
@@ -13,9 +13,9 @@ abstract class DataState<T> {
 }
 
 class DataSuccess<T> extends DataState<T> {
-  const DataSuccess(T data) :super(data: data);
+  const DataSuccess(T data) : super(data: data);
 }
 
 class DataFailed<T> extends DataState<T> {
-  const DataFailed(ApiError error) :super(error: error);
+  const DataFailed(BaseError error) : super(error: error);
 }

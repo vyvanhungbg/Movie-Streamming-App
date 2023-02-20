@@ -16,6 +16,10 @@
      "showMore":"Xem thêm",
        "eps":"Tập",
       "recommendations":"Gợi ý cho bạn",
+      "home":"Trang chủ",
+          "favorite":"Yêu thích",
+          "comic":"Truyện",
+          "setting":"Cài đặt",
     "noInfo":"Không có thông tin"
 
 }

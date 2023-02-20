@@ -4,14 +4,14 @@ import 'package:cinema/src/data/repositories/detail_movie_repository.dart';
 import 'package:injectable/injectable.dart';
 
 @Singleton()
-class GetDetailMovieUseCase implements UseCase<DataState, Map<String, String>> {
+class FindFavoriteMovieUseCase implements UseCase<DataState, String> {
   final DetailMovieRepository _detailMovieRepository;
 
   @factoryMethod
-  GetDetailMovieUseCase(this._detailMovieRepository);
+  FindFavoriteMovieUseCase(this._detailMovieRepository);
 
   @override
-  Future<DataState> call({required Map<String, String> params}) {
-    return _detailMovieRepository.getMoviesById(params);
+  Future<DataState> call({required String params}) {
+    return _detailMovieRepository.findByID(params);
   }
 }

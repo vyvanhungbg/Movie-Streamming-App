@@ -16,5 +16,9 @@
     "genres":"genres",
     "eps":"EPS",
     "recommendations":"Recommendations",
+    "home":"Home",
+    "favorite":"Favorite",
+    "comic":"Comic",
+    "setting":"Setting",
     "noInfo":"No information"
 }

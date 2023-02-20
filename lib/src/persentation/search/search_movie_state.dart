@@ -4,12 +4,14 @@ part of 'search_movie_bloc.dart';
 class SearchMovieState extends Equatable {
   DataStatus? searchMovieStatus;
   ArrayResponse<RecentShowEntity>? searchMovieData;
-  ApiError? error;
+  BaseError? error;
 
   SearchMovieState({this.searchMovieStatus, this.searchMovieData, this.error});
 
-  SearchMovieState copyWith({DataStatus? searchMovieStatus,
-    ArrayResponse<RecentShowEntity>? searchMovieData, ApiError? error}) {
+  SearchMovieState copyWith(
+      {DataStatus? searchMovieStatus,
+      ArrayResponse<RecentShowEntity>? searchMovieData,
+      BaseError? error}) {
     return SearchMovieState(
         searchMovieStatus: searchMovieStatus,
         searchMovieData: searchMovieData,

@@ -5,6 +5,7 @@ import 'package:cinema/generated/assets.dart';
 import 'package:cinema/routers.dart';
 import 'package:cinema/src/base/data/data_status.dart';
 import 'package:cinema/src/base/network/querymodel/watch_paramerter.dart';
+import 'package:cinema/src/model/favorite_entity.dart';
 import 'package:cinema/src/model/movie_detail.dart';
 import 'package:cinema/src/persentation/detail/bloc/detail_movie_bloc.dart';
 import 'package:cinema/src/persentation/detail/widgets/description_text_widget.dart';
@@ -125,9 +126,32 @@ class BuildMovieDetail extends StatelessWidget {
                               borderRadius: BorderRadius.circular(100),
                               border: Border.all(width: 1, color: Colors.grey)),
                           child: InkWell(
-                              onTap: () {},
-                              child:
-                                  const Icon(Icons.favorite_border_outlined))),
+                              onTap: () {
+                                final entityFavorite = FavoriteEntity.init(
+                                    id: movie.id!, image: movie.image);
+
+                                final currentFavorite =
+                                    state.actionFavoriteStatus;
+                                if (currentFavorite ==
+                                    ActionFavoriteStatus.unFavorite) {
+                                  BlocProvider.of<DetailMovieBloc>(context)
+                                      .add(AddFavoriteMovie(entityFavorite));
+                                } else if (currentFavorite ==
+                                    ActionFavoriteStatus.favorite) {
+                                  BlocProvider.of<DetailMovieBloc>(context).add(
+                                      RemoveFavoriteMovie(entityFavorite.id));
+                                } else {
+                                  BlocProvider.of<DetailMovieBloc>(context).add(
+                                      FindFavoriteMovie(entityFavorite.id));
+                                }
+                              },
+                              child: Icon(
+                                state.actionFavoriteStatus ==
+                                        ActionFavoriteStatus.favorite
+                                    ? Icons.favorite_outlined
+                                    : Icons.favorite_border_outlined,
+                                color: Colors.red,
+                              ))),
                     ),
                   )
                 ],

@@ -4,7 +4,7 @@ part of 'watch_movie_bloc.dart';
 class WatchMovieState extends Equatable {
   final DataStatus? watchMovieStatus;
   final WatchMovieEntity? watchMovieData;
-  final ApiError? error;
+  final BaseError? error;
 
   WatchMovieState({this.watchMovieStatus, this.watchMovieData, this.error});
 
@@ -15,7 +15,7 @@ class WatchMovieState extends Equatable {
   WatchMovieState copyWith(
       {DataStatus? watchMovieStatus,
       WatchMovieEntity? watchMovieData,
-      ApiError? error}) {
+      BaseError? error}) {
     return WatchMovieState(
         watchMovieStatus: watchMovieStatus ?? this.watchMovieStatus,
         watchMovieData: watchMovieData ?? this.watchMovieData,

@@ -9,7 +9,7 @@ import 'package:cinema/src/model/watch_movie_entity.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
-import '../../../base/eror/api_error.dart';
+import '../../../base/eror/base_error.dart';
 
 part 'watch_movie_event.dart';
 part 'watch_movie_state.dart';

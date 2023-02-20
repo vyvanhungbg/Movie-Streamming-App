@@ -41,7 +41,7 @@ class CustomSearchDelegate extends SearchDelegate<String> {
   @override
   Widget buildResults(BuildContext context) {
     blocSearch.add(SearchMovieStarted(searchKey: query));
-    void pushUserNormal(String idMovie) {
+    void pushMovieWithId(String idMovie) {
       Navigator.pushNamed(context, Routers.detail, arguments: {'id': idMovie});
     }
 
@@ -60,7 +60,7 @@ class CustomSearchDelegate extends SearchDelegate<String> {
               children: List.generate(movies.length ?? 0, (index) {
                 return GestureDetector(
                   onTap: () {
-                    pushUserNormal(movies[index].id ?? '');
+                    pushMovieWithId(movies[index].id ?? '');
                   },
                   child: Container(
                     //decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(10))),

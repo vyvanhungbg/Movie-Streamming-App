@@ -32,9 +32,9 @@ class _HomePageScreenState extends State<HomePageScreen> {
   PageController? pageController;
   double viewportFraction = 0.8;
   double? pageOffset = 0;
-
   @override
   void initState() {
+    super.initState();
     pageController =
         PageController(initialPage: 0, viewportFraction: viewportFraction)
           ..addListener(() {
@@ -42,7 +42,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
               pageOffset = pageController!.page;
             });
           });
-    super.initState();
   }
 
   @override

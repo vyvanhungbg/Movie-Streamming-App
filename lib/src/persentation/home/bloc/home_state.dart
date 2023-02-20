@@ -1,5 +1,5 @@
 import 'package:cinema/src/base/data/data_status.dart';
-import 'package:cinema/src/base/eror/api_error.dart';
+import 'package:cinema/src/base/eror/base_error.dart';
 import 'package:cinema/src/base/response/array_response.dart';
 import 'package:cinema/src/model/movie_response_model.dart';
 import 'package:cinema/src/model/recent_show_entity.dart';
@@ -12,7 +12,7 @@ class HomeState extends Equatable {
   final DataStatus? moviesRecentStatus;
   final DataStatus? moviesRecentShowStatus;
 
-  final ApiError? apiError;
+  final BaseError? apiError;
   final ArrayResponse<MovieResponseModel>? moviesTrendingData;
   final List<MovieResponseModel>? moviesRecentData;
   final List<RecentShowEntity>? moviesRecentShowData;
@@ -44,7 +44,7 @@ class HomeState extends Equatable {
       List<MovieResponseModel>? moviesRecentData,
       DataStatus? moviesRecentShowStatus,
       List<RecentShowEntity>? moviesRecentShowData,
-      ApiError? error}) {
+      BaseError? error}) {
     return HomeState(
         moviesTrendingStatus: moviesTrendingStatus ?? this.moviesTrendingStatus,
         moviesTrendingData: moviesTrendingData ?? this.moviesTrendingData,
