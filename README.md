@@ -1,16 +1,20 @@
-# cinema
+# cinema (a application to watch movies online)
 
-A new Flutter project.
+## Tech ##
+- API layer : Dio, Retrofit
+- Architecture: Bloc(State-Event)
+- DI: get_it, Injectable, Injectable
+- Firebase: Firebase crashlytic
+- Localizations: flutter localizations
+- Image : CacheNetworkImage
 
-## Getting Started
+### Screenshots
+| Home | Home | Detail Screen |
+| :-------------: |:-------------:| :-----:|
+![image](https://user-images.githubusercontent.com/69209989/225823730-cdec32ad-9b28-4c92-8a29-2860d0e76b7d.png)|![image](https://user-images.githubusercontent.com/69209989/225823842-d018d5e2-fe66-4ab3-b88a-d7d417a40ecb.png) | ![image](https://user-images.githubusercontent.com/69209989/225823924-961b008d-8715-44b4-9607-dcd42e711f14.png) 
 
-This project is a starting point for a Flutter application.
+| Watch | Reading progress | Lost internet |
+| :-------------: |:-------------:| :-----:|
+![image](https://user-images.githubusercontent.com/69209989/225824282-386f4c03-f3d9-43e1-a092-3ec189825459.png)|![image](https://user-images.githubusercontent.com/69209989/225824358-ee76b746-4692-439c-9eb7-31b2881ef462.png) | ![image](https://user-images.githubusercontent.com/69209989/225830348-47d96c89-4941-4c9f-b3ae-fd1341d692de.png)
+) 
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
